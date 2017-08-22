@@ -1,0 +1,244 @@
+<!DOCTYPE HTML SYSTEM>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>HomeWork4</title>
+<!--
+<BODY>
+This is for USC disclaimer
+</BODY>
+-->
+
+<style>
+ h1{
+  font-size: 20px;
+ }
+ input.yes{
+  border-radius: 3px;
+  background-color: rgb(192,192,192);
+  border: none;
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  }
+</style>
+<script = "text/javascript">
+
+function isContent(xmlDocument){
+  root=xmlDocument.DocumentElement;
+  rowNodes = xmlDocument.getElementsByTagName("Row");
+  if (rowNodes.length > 0){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+function generateHTML(xmlDoc)
+  {  
+        ELEMENT_NODE = 1;  
+        root=xmlDoc.DocumentElement;
+        html_text="<html><head><title>XML Parse Result</title></head><body>";
+        html_text+="<table border='2'>";
+        html_text+="<tbody>";
+
+
+        html_text+="<tr>"
+
+        tableHeader = xmlDoc.getElementsByTagName("Header");
+        tableHeaderList = tableHeader.item(0).childNodes;
+
+        for (i=0; i<tableHeaderList.length; i++){
+          if (tableHeaderList.item(i).nodeType==ELEMENT_NODE) {
+            if (tableHeaderList.item(i).hasChildNodes()) {
+              header = tableHeaderList.item(i).firstChild.nodeValue;
+            }
+            else{
+              header = "N/A";
+            }
+              html_text+="<th>"+header+"</th>";
+          }
+        }
+
+        html_text+="</tr>"
+
+        rowNodes = xmlDoc.getElementsByTagName("Row");
+        locationNodes = xmlDoc.getElementsByTagName("Location");
+
+        if(rowNodes.length>0){
+          for (i=0; i<rowNodes.length; i++){
+            rowNodesList = rowNodes.item(i).childNodes;
+            html_text+="<tr>"
+            for (j=0; j<rowNodesList.length; j++){ 
+              if (rowNodesList.item(j).nodeType==ELEMENT_NODE) {
+                if (rowNodesList.item(j).hasChildNodes()){
+                  if (rowNodesList.item(j).nodeName=="Logo"){
+                    rowData = rowNodesList.item(j).firstChild.nodeValue;
+                    html_text+="<td><img src='"+rowData+"' width='"+150+"' height='"+150+"'></td>";}
+                  
+                  else if (rowNodesList.item(j).nodeName=="HomePage"){
+                    homeData = rowNodesList.item(j).firstChild.nodeValue;
+                    html_text+="<td><a href="+homeData+">"+rowData+"</td>";}
+                  
+                  else if (rowNodesList.item(j).nodeName=="Location"){
+                    html_text+="<td><ul>"
+                    locationNodesList = locationNodes.item(i).childNodes;
+                    for(k=0;k<locationNodesList.length;k++){
+                      if (locationNodesList.item(k).nodeType==ELEMENT_NODE) {
+                        if (locationNodesList.item(k).hasChildNodes()){
+                          locData = locationNodesList.item(k).firstChild.nodeValue;
+                          html_text+="<li>"+locData+"</li>";
+                        }
+                        else{
+                          locData = "N/A";
+                          html_text+="<li>"+locData+"</li>";
+                        }
+                      }
+                    }
+                    html_text+="</ul></td>";
+                  }
+                  else{
+                    rowData = rowNodesList.item(j).firstChild.nodeValue;
+                    html_text+="<td>"+rowData+"</td>";
+                  }
+                }
+                else{
+                  rowData = "N/A";
+                  html_text+="<td>"+rowData+"</td>";
+                }
+              }
+            }
+            html_text+="</tr>"
+          }
+        }
+        else{
+          alert("There is no newslist information in this XML document")
+        }
+
+        html_text+="</tbody>";
+        html_text+="</table>";
+        html_text+="</body></html>";  
+  }
+
+function UrlExists(url)
+{
+  var http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  http.send();
+  return http.status!=404;
+}
+
+
+function viewXML(what)
+{
+  var URL = what.URL.value;
+
+  function loadXML(url) {
+    if(UrlExists(url)){
+      if (window.XMLHttpRequest)
+      {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();   
+      }
+
+      else {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
+      }
+
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          myFunction(this);
+        }
+      };
+
+      xmlhttp.open("GET",url, false);
+      xmlhttp.send();
+
+      xmlDoc=xmlhttp.responseXML;
+      return xmlDoc;  
+    }
+    else{
+      alert("ERROR: XML File Doesn't exist");
+    }
+  }
+
+  xmlDoc = loadXML(URL);
+
+  if (isContent(xmlDoc)){
+    if (window.ActiveXObject) //if IE, simply execute script (due to async prop).
+     {  if (xmlDoc.parseError.errorCode != 0) {
+        var myErr = xmlDoc.parseError;
+        generateError(xmlDoc);
+        hWin = window.open("", "Error", "height=300,width=340");
+        hWin.document.write(html_text);
+      } else {  generateHTML(xmlDoc);
+                hWin = window.open("", "HomeWork4.html", "height=800,width=600");
+                hWin.document.write(html_text);   }
+     } 
+    else //else if FF, execute script once XML object has loaded
+    {  xmlDoc.onload=generateHTML(xmlDoc);
+      hWin = window.open("", "HomeWork4.html", "scrollbars=yes,height=800,width=900");
+      hWin.document.write(html_text);  }
+
+  
+    hWin.document.close(); 
+  }
+  else{
+    alert("No Newspapers Founds")
+  }
+
+
+}
+
+
+ function validateForm(theForm) {
+    var x = document.forms["myform"]["URL"].value;
+    if (x == null || x == "") {
+        alert("URL must be filled out");
+        return false;
+    }
+    else{
+      viewXML(theForm);
+    }
+}
+
+function myFunction(xml) {
+  var parser, xmlDoc;
+  parser = new DOMParser();
+  xmlDoc = parser.parseFromString(xml.responseText,"text/xml");
+  if(isParseError(xmlDoc)) {
+        alert('Error parsing XML');
+    }
+    return xmlDoc;
+}
+
+function isParseError(parsedDocument) {
+    // parser and parsererrorNS could be cached on startup for efficiency
+    var parser = new DOMParser(),
+        errorneousParse = parser.parseFromString('<', 'text/xml'),
+        parsererrorNS = errorneousParse.getElementsByTagName("parsererror")[0].namespaceURI;
+
+    if (parsererrorNS === 'http://www.w3.org/1999/xhtml') {
+        // In PhantomJS the parseerror element doesn't seem to have a special namespace, so we are just guessing here :(
+        return parsedDocument.getElementsByTagName("parsererror").length > 0;
+    }
+
+    return parsedDocument.getElementsByTagNameNS(parsererrorNS, 'parsererror').length > 0;
+}
+
+ </script>
+ </head>
+
+
+<body>
+
+<div align="center">
+<h1>Enter URL for Newspaper List XML File </h1>
+<form name="myform" method="POST" id="location">
+<input type="text" name="URL" maxlength="100" size="30" value ="newslist.xml" >
+<br>
+<br>
+<input class = "yes" type="submit" name="submit" value="Submit Query" onclick="validateForm(this.form)">
+<br>
+</form>
+</div>
+<NOSCRIPT>
+</body></html>

@@ -1,0 +1,337 @@
+/* Header */
+
+body{
+}
+
+#navBarHeader{
+    height: 50px;
+    margin: auto;
+}
+
+.navbar-header {
+    float: center;
+    padding: 0px;
+    text-align: center;
+    width: 100%;
+}
+
+.navbar-brand {float:none;}
+
+hr{
+    border-top: 1px solid rgba(220, 220, 220, 1);
+}
+
+small{
+    color: black;
+}
+
+#wrapper {
+    position: absolute;
+/*    overflow: visible;*/
+/*    background-color: rgb(69,69,69);*/
+/*    background-color: rgb(246,246,246);*/
+    padding-left: 150px;
+    width: 100%;
+    height: auto;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: relative;
+    padding-left: 15px;
+}
+
+
+#wrapper.toggled {
+    padding-left: 0px;
+    width: 100%;
+    height: auto;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 0px;
+    padding-left: 15px;
+}
+
+
+#sidebar-wrapper {
+    position: absolute;
+
+    min-height: 50em;
+    float:left;
+/*    position: relative;*/
+/*    overflow: auto*/
+    width: 150px;
+    height: 100%;
+/*    height: auto;*/
+    margin-left: -150px;
+    overflow-y: auto;
+    background: rgb(69,69,69);
+}
+
+
+#page-content-wrapper {
+    min-height: 50em;
+    width: auto;
+    height: 100%;
+/*    height: auto;*/
+    padding: 15px;
+    background: rgb(246,246,246);
+}
+
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    height: auto;
+    position: relative;
+    top: 0;
+    width: 150px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.sidebar-nav li {
+    text-indent: 10px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: rgb(195,195,195);
+}
+
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: rgb(69,69,69);
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+ label.navBarItem {
+        display: none;
+    }
+    
+    #sidebar-wrapper{
+        margin-left: -50px; 
+        width: 50px;
+    }
+    
+    #wrapper{
+        padding-left: 50px;
+    }
+    
+
+    #dynamic-select{
+        width: 25%;
+    }
+
+
+}
+    
+    
+   
+
+/*
+    #wrapper {
+        padding-left: 150px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 150px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 0px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+*/
+}
+
+
+.nav-tabs{
+    background-color: white;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+/*
+#underLine{
+    border-bottom: 1px;
+}
+*/
+
+.aTabs {
+    color: #d3d3d3;
+    text-decoration: none;
+}
+
+.aTabs:hover 
+{
+    color:black; 
+    text-decoration:none; 
+    cursor:pointer;  
+}
+
+.table{
+    margin-top: 0px;
+    padding-top: 0px;
+    background-color: white;
+}
+
+#senateTab, #houseTab, #byStateTab, #Active, #New, #commitHouse, #commitSenate, #commitJoint, #favoriteLegislator, #favoriteBills, #favoriteCommittee{
+    height: 100%;
+    background-color: white;
+    margin-top: 0px;
+    padding-top: 20px;
+}
+
+#table-title{
+    margin-top: 0px;
+    background-color: rgb(246,246,246);
+    font-size: 14px;
+    height: 40px;
+    padding-left: 20px;
+    padding-bottom: 0px;
+    padding-top: 5px;
+    
+}
+
+#header-div{
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid #cccccc;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    margin-bottom: 10px;
+}
+
+
+#dynamic-select{
+    float: right;
+    width: 25%;
+    margin-right: 35px;
+    height: 25px;
+    background-color: white;
+    margin-top: 5px;
+}
+
+#pagination-controls{
+
+    text-align: center;
+}
+
+.table-responsive{
+    padding-top: 0px;
+    margin-top: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.navbar-default{
+    padding: 0;
+}
+
+.well{
+    background-color: white;
+    padding: 0px;
+}
+
+#detailButtonBack{
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    padding-bottom: 0px;
+    padding-top: 5px;
+
+    
+}
+
+label.navBarItem{
+    font-weight: 400;
+}
+
+#detailBillLabel, #detailLabel, #detailFavoriteLabel{
+    font-size: 26px;
+    font-weight: 300;
+}
+
+#backButtonBillDetail{
+   margin-bottom: 10px; 
+}
+
+
+.progress {
+    margin-bottom: 0px;
+}
+
+#embededPDF {
+    width: 100%;
+    height: 500px;
+}
+
+#hrBillDetail {
+    margin-top: 0px;
+}
+
+
+#hrLegislatorDetail{
+    margin-top: 7px;
+}
+
+
+#detailLegislatorFavorite, #detailBillFavorite {
+    float: right;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+#fixedTabs{
+    height: 42px;
+}
+
+#trash:hover{
+    color:red;
+    
+}
+
+.yellow {
+    color: yellow;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.black {
+    color:white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+/*    color: black;*/
+}
